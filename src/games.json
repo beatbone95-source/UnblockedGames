@@ -1,0 +1,66 @@
+[
+  {
+    "id": "1",
+    "title": "2048",
+    "description": "Join the numbers and get to the 2048 tile! A simple but addictive puzzle game.",
+    "thumbnail": "https://picsum.photos/seed/2048/400/300",
+    "iframeUrl": "https://play2048.co/",
+    "category": "Puzzle"
+  },
+  {
+    "id": "2",
+    "title": "Hextris",
+    "description": "Fast-paced puzzle game inspired by Tetris. Rotate the hexagon to match colors.",
+    "thumbnail": "https://picsum.photos/seed/hextris/400/300",
+    "iframeUrl": "https://hextris.io/",
+    "category": "Arcade"
+  },
+  {
+    "id": "3",
+    "title": "Doodle Jump",
+    "description": "Jump as high as you can! Avoid monsters and broken platforms.",
+    "thumbnail": "https://picsum.photos/seed/doodle/400/300",
+    "iframeUrl": "https://doodle-jump.io/",
+    "category": "Arcade"
+  },
+  {
+    "id": "4",
+    "title": "Pac-Man",
+    "description": "The classic arcade legend. Eat all the dots and avoid the ghosts.",
+    "thumbnail": "https://picsum.photos/seed/pacman/400/300",
+    "iframeUrl": "https://www.google.com/logos/2010/pacman10-i.html",
+    "category": "Classic"
+  },
+  {
+    "id": "5",
+    "title": "Snake",
+    "description": "The timeless classic. Eat the apples, grow longer, and don't hit the walls.",
+    "thumbnail": "https://picsum.photos/seed/snake/400/300",
+    "iframeUrl": "https://www.google.com/logos/2010/pacman10-i.html",
+    "category": "Classic"
+  },
+  {
+    "id": "6",
+    "title": "Flappy Bird",
+    "description": "Flap your wings and avoid the pipes. How far can you go?",
+    "thumbnail": "https://picsum.photos/seed/flappy/400/300",
+    "iframeUrl": "https://flappybird.io/",
+    "category": "Arcade"
+  },
+  {
+    "id": "7",
+    "title": "Tetris",
+    "description": "The ultimate block-stacking puzzle game. Clear lines and score big.",
+    "thumbnail": "https://picsum.photos/seed/tetris/400/300",
+    "iframeUrl": "https://tetris.com/play-tetris",
+    "category": "Puzzle"
+  },
+  {
+    "id": "8",
+    "title": "Crossy Road",
+    "description": "Why did the chicken cross the road? Find out in this endless hopper.",
+    "thumbnail": "https://picsum.photos/seed/crossy/400/300",
+    "iframeUrl": "https://www.poki.com/en/g/crossy-road",
+    "category": "Arcade"
+  }
+]
