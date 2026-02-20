@@ -21,63 +21,51 @@ export default function App() {
 
   const filteredGames = useMemo(() => {
     return gamesData.filter(game => {
-      const matchesSearch = game.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            game.description.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesSearch = game.title.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory = selectedCategory === 'All' || game.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
   }, [searchQuery, selectedCategory]);
 
-  const handleGameClick = (game) => {
-    setSelectedGame(game);
-    setIsFullscreen(false);
-  };
-
-  const closeGame = () => {
-    setSelectedGame(null);
-    setIsFullscreen(false);
-  };
-
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#1a1a2e]">
       {/* Header */}
-      <header className="sticky top-0 z-40 glass border-b border-white/10 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="bg-indigo-600 p-2 rounded-xl shadow-lg shadow-indigo-500/40">
-              <Gamepad2 className="w-6 h-6 text-white" />
+      <header className="bg-[#2a2a4a] border-b-4 border-yellow-400 px-6 py-6 sticky top-0 z-40 shadow-2xl">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4 group cursor-pointer">
+            <div className="bg-yellow-400 p-3 rounded-2xl rotate-3 group-hover:rotate-12 transition-transform shadow-[0_0_20px_rgba(250,204,21,0.4)]">
+              <Gamepad2 className="w-8 h-8 text-black" />
             </div>
-            <h1 className="text-2xl font-display font-bold tracking-tight bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-display font-black tracking-tighter poki-gradient-text uppercase italic">
               Unblocked Hub
             </h1>
           </div>
 
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+          <div className="relative w-full md:max-w-md">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" />
             <input
               type="text"
-              placeholder="Search games..."
+              placeholder="Search for fun..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-zinc-900 border border-white/10 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-sm"
+              className="w-full bg-[#1a1a2e] border-2 border-white/10 rounded-2xl py-3 pl-12 pr-4 focus:outline-none focus:border-yellow-400 transition-all text-lg font-medium placeholder:text-zinc-600"
             />
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-8">
-        {/* Categories */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-6 no-scrollbar">
-          <Filter className="w-4 h-4 text-zinc-500 mr-2 shrink-0" />
+      <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-10">
+        {/* Categories Bar */}
+        <div className="flex items-center gap-3 overflow-x-auto pb-8 no-scrollbar">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all shrink-0 ${
+              className={`poki-button whitespace-nowrap ${
                 selectedCategory === cat
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20'
-                  : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200 border border-white/5'
+                  ? 'bg-yellow-400 text-black shadow-[0_5px_0_#ca8a04]'
+                  : 'bg-[#2a2a4a] text-zinc-300 hover:bg-[#3a3a5a] shadow-[0_5px_0_#1a1a2e]'
               }`}
             >
               {cat}
@@ -86,68 +74,32 @@ export default function App() {
         </div>
 
         {/* Game Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredGames.length > 0 ? (
-            filteredGames.map((game) => (
-              <motion.div
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                key={game.id}
-                onClick={() => handleGameClick(game)}
-                className="group relative bg-zinc-900/50 rounded-2xl overflow-hidden border border-white/5 cursor-pointer game-card-hover"
-              >
-                <div className="aspect-video relative overflow-hidden">
-                  <img
-                    src={game.thumbnail}
-                    alt={game.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-60" />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="bg-indigo-600 p-4 rounded-full shadow-2xl scale-75 group-hover:scale-100 transition-transform">
-                      <Play className="w-6 h-6 text-white fill-current" />
-                    </div>
-                  </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+          {filteredGames.map((game) => (
+            <motion.div
+              layout
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              key={game.id}
+              onClick={() => setSelectedGame(game)}
+              className="poki-card group"
+            >
+              <div className="aspect-square relative overflow-hidden">
+                <img
+                  src={game.thumbnail}
+                  alt={game.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+                <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
+                  <h3 className="font-bold text-sm truncate">{game.title}</h3>
                 </div>
-                <div className="p-4">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-400">
-                      {game.category}
-                    </span>
-                    <div className="flex items-center gap-1">
-                      <Star className="w-3 h-3 text-yellow-500 fill-current" />
-                      <span className="text-[10px] text-zinc-400">4.8</span>
-                    </div>
-                  </div>
-                  <h3 className="font-display font-semibold text-lg text-white mb-1">
-                    {game.title}
-                  </h3>
-                  <p className="text-sm text-zinc-400 line-clamp-2 leading-relaxed">
-                    {game.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))
-          ) : (
-            <div className="col-span-full py-20 text-center">
-              <div className="bg-zinc-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Search className="w-6 h-6 text-zinc-600" />
               </div>
-              <h3 className="text-xl font-display font-semibold text-white">No games found</h3>
-              <p className="text-zinc-500">Try adjusting your search or category filters.</p>
-            </div>
-          )}
+            </motion.div>
+          ))}
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-white/5 py-8 px-6 text-center">
-        <p className="text-zinc-500 text-sm">
-          &copy; 2026 Unblocked Hub. All games are property of their respective owners.
-        </p>
-      </footer>
 
       {/* Game Player Modal */}
       <AnimatePresence>
@@ -156,51 +108,48 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/90 backdrop-blur-xl p-4 md:p-8"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className={`relative bg-zinc-900 rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex flex-col ${
-                isFullscreen ? 'w-full h-full' : 'w-full max-w-5xl aspect-video'
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 100, opacity: 0 }}
+              className={`relative bg-[#2a2a4a] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-yellow-400 flex flex-col ${
+                isFullscreen ? 'w-full h-full' : 'w-full max-w-6xl aspect-video'
               }`}
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-zinc-900/50">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-bold uppercase tracking-widest text-indigo-400 bg-indigo-400/10 px-2 py-0.5 rounded">
-                    {selectedGame.category}
-                  </span>
-                  <h2 className="font-display font-bold text-xl text-white">
+              <div className="flex items-center justify-between px-8 py-4 bg-[#1a1a2e]">
+                <div className="flex items-center gap-4">
+                  <div className="bg-yellow-400 p-2 rounded-xl">
+                    <Gamepad2 className="w-5 h-5 text-black" />
+                  </div>
+                  <h2 className="font-display font-black text-2xl uppercase italic tracking-tighter">
                     {selectedGame.title}
                   </h2>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-4">
                   <button
                     onClick={() => setIsFullscreen(!isFullscreen)}
-                    className="p-2 hover:bg-white/5 rounded-lg transition-colors text-zinc-400 hover:text-white"
-                    title="Toggle Fullscreen"
+                    className="p-3 bg-[#2a2a4a] hover:bg-yellow-400 hover:text-black rounded-2xl transition-all"
                   >
-                    <Maximize2 className="w-5 h-5" />
+                    <Maximize2 className="w-6 h-6" />
                   </button>
                   <button
-                    onClick={closeGame}
-                    className="p-2 hover:bg-white/5 rounded-lg transition-colors text-zinc-400 hover:text-white"
-                    title="Close Game"
+                    onClick={() => setSelectedGame(null)}
+                    className="p-3 bg-red-500 hover:bg-red-600 rounded-2xl transition-all"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-6 h-6" />
                   </button>
                 </div>
               </div>
 
-              {/* Iframe Container */}
-              <div className="flex-1 bg-black relative">
+              {/* Iframe */}
+              <div className="flex-1 bg-black">
                 <iframe
                   src={selectedGame.iframeUrl}
                   className="w-full h-full border-none"
                   allow="fullscreen; autoplay; encrypted-media"
-                  title={selectedGame.title}
                 />
               </div>
             </motion.div>
